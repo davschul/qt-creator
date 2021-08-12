@@ -2038,7 +2038,8 @@ Utils::optional<QString> MsvcToolChain::generateEnvironmentSettings(const Utils:
     // as I don't know another way to do this in Qt...
 
     // Create a batch file to create and save the env settings
-    Utils::TempFileSaver saver(Utils::TemporaryDirectory::masterDirectoryPath() + "/XXXXXX.bat");
+    TemporaryDirectory dir("msvc_env_mods_XXXXXX");
+    FileSaver saver(dir.filePath("msvc_env_mod.bat"));
 
     QByteArray call = "call ";
     call += ProcessArgs::quoteArg(batchFile).toLocal8Bit();
