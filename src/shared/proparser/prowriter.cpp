@@ -345,8 +345,7 @@ void ProWriter::putVarValues(ProFile *profile, QStringList *lines, const QString
             if (scopeStart < 0) {
                 added = '\n' + scope + " {";
             } else {
-                // TODO use anchoredPattern() once Qt 5.12 is mandatory
-                const QRegularExpression rx("\\A(\\s*" + scope + "\\s*:\\s*)[^\\s{].*\\z");
+                const QRegularExpression rx(QRegularExpression::anchoredPattern("(\\s*" + scope + "\\s*:\\s*)[^\\s{].*"));
                 const QRegularExpressionMatch match(rx.match(lines->at(scopeStart)));
                 if (match.hasMatch()) {
                     qCDebug(prowriterLog) << 3 << "old line value:" << (*lines)[scopeStart];
